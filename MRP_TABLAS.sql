@@ -4,8 +4,12 @@ use mrp_laboratorio;
 create table proveedores (
    id                       int             not null auto_increment comment "Código Proveedor",
    nombre                   varchar(50)     not null                comment "Nombre Proveedor",
+numeroproveedor 			int 			not null 	comment “Numero del proveedor”
+correoproveedor			varchar(50) not null comment “Correo electronico del proveedor”
    constraint proveedores_pk primary key (id),
    constraint proveedores_uq_nombre unique (nombre)
+   constraint proveedores_uq_numeroproveedor unique (numeroproveedor)
+   constraint correoproveedor_uq_correoproveedor unique (correoproveedor)
 ) engine=innodb comment="Esta tabla contiene la información de proveedores";
 
 create table materiales (
@@ -35,7 +39,7 @@ create table componentes (
 	mp_nombre		varchar(50) not null				comment "Nombre de materia prima necesaria",
     cantidad		int			not null				comment	"Cantidad de materia prima necesaria",
     constraint componentes_id primary key (id),
-    constraint componentes_nombre unique (nombre),
+    constraint componentes_uq_nombre unique (nombre),
 	key componente_id (mp_id),
 	constraint componentes_fk_id foreign key (id)
 	references materiales (id), 
@@ -58,7 +62,15 @@ create table cliente (
    nombre2                  varchar(50)     not null                comment "",
    apellido1                varchar(50)     not null                comment "",
    apellido2                varchar(50)     not null                comment "",
+   correo_cliente          varchar(50) not null comment “”, 
+   numero_cliente         int 			not null comment “”,
+   direccion_cliente       varchar(250) not null comment “”, 
    constraint cliente_pk primary key (id)
+   constraint cliente_uq_correo_cliente unique (correo_cliente, cliente_id)
+   constraint cliente_uq_numero_cliente unique (numero_cliente, cliente_id)
+   constraint cliente_uq_direccion_cliente unique (direccion_cliente, cliente_id)
+
+
 ) engine=innodb comment="Esta tabla contiene la información de clientes";
 
 create table mps (
